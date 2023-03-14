@@ -46,7 +46,6 @@ async function destroyJob(jobId) {
 
 async function updateJob(jobId, jobInfo) {
   try {
-    console.log('db model newJobData', jobInfo);
     const valueString = Object.keys(jobInfo).map(
       (key, index) => `"${key}" = '${jobInfo[key]}'`
     ).join(', ');
