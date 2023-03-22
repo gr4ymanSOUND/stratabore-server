@@ -3,9 +3,30 @@ const jwt = require('jsonwebtoken');
 const secret = process.env.JWT_SECRET;
 const {
     getUser,
-    getUserById
+    getUserById,
+    getAllUsers
 } = require('../db/models/users');
 
+userRouter.get('/', async (req, res, next) => {
+
+  const prefix = 'Bearer ';
+  
+  try {
+      const auth = req.headers.authorization;
+      const token = auth.slice(prefix.length);
+      
+      let authorizedUser = jwt.verify(token, secret);
+      if (authorizedUser.username) {
+          const allUsers = await getAllUsers();
+          res.send(allUsers)
+      } else {
+          throw new Error('error getting all user info');
+      }
+  } catch (error) {
+      next(error);
+  }
+
+});
 
 // api/users/login sets `user` to the request body which getUser() destructures
 userRouter.post('/login', async (req, res, next) => {

@@ -2,7 +2,7 @@ const jobRouter = require('express').Router();
 const { requireUser } = require('../api/utils');
 const { getAllJobs, createJob, destroyJob, updateJob } = require('../db/models/jobs');
 
-jobRouter.get('/', async (req, res, next) => {
+jobRouter.get('/', requireUser, async (req, res, next) => {
   try {
     const jobs = await getAllJobs();
     res.send(jobs);

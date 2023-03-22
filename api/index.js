@@ -47,5 +47,8 @@ apiRouter.use('/users', userRouter);
 const jobRouter = require('./jobs');
 apiRouter.use('/jobs', jobRouter);
 
+const rigRouter = require('./rigs');
+apiRouter.use('/rigs', rigRouter);
+
 
 module.exports = apiRouter;

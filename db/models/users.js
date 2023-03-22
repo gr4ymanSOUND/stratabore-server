@@ -5,7 +5,7 @@ const SALT = 13;
 
 async function getAllUsers() {
     try {
-      const allUsers = await client.query(`
+      const {rows: allUsers} = await client.query(`
         SELECT id, "firstName", "lastName", email, "userName", "isAdmin" 
         FROM users;
       `);
