@@ -26,7 +26,8 @@ jobRouter.post('/', requireUser, async (req, res, next) => {
 jobRouter.delete('/:jobId', requireUser, async (req, res, next) => {
   try {
     const { jobId } = req.params;
-    const deletedJob = await destroyJob(jobId);
+    const newJobData = {status: 'canceled'}
+    const deletedJob = await updateJob(jobId, newJobData);
     res.send(deletedJob);
   } catch (error) {
     console.error(error);

@@ -35,18 +35,20 @@ async function createRig(rigInfo) {
   }
 }
 
-async function destroyRig(rigId) {
-  try {
-    const { rows: [destroyedRig] } = await client.query(`
-      DELETE FROM rigs
-      WHERE id = $1
-      RETURNING *;
-      `, [rigId]);
-    return destroyedRig;
-  } catch (error) {
-    throw error;
-  }
-};
+// rigs have statuses, so we'll just set them to inactive rather than deleting
+// async function destroyRig(rigId) {
+//   try {
+//     const { rows: [destroyedRig] } = await client.query(`
+//       UPDATE rigs
+//       SET 
+//       WHERE id = $1
+//       RETURNING *;
+//       `, [rigId]);
+//     return destroyedRig;
+//   } catch (error) {
+//     throw error;
+//   }
+// };
 
 async function updateRig(rigId, rigInfo) {
   try {
@@ -68,6 +70,5 @@ async function updateRig(rigId, rigInfo) {
 module.exports = {
   getAllRigs,
   createRig,
-  destroyRig,
   updateRig
 };

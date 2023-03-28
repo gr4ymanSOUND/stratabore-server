@@ -92,11 +92,29 @@ async function getAllUsers() {
       throw error;
     }
   }
+
+  async function updateUser(userId, userInfo) {
+    try {
+      const valueString = Object.keys(userInfo).map(
+        (key, index) => `"${key}" = '${userInfo[key]}'`
+      ).join(', ');
+      const { rows: [updatedUser] } = await client.query(`
+        UPDATE users
+        SET ${valueString}
+        WHERE id = $1
+        RETURNING *;
+      `, [userId]);
+      return updatedUser;
+    } catch (error) {
+      throw error;
+    }
+  }
   
   module.exports = {
     getAllUsers,
     getUser,
     getUserById,
     getUserByUserName,
-    createUser
+    createUser,
+    updateUser
   };

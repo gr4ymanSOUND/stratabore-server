@@ -1,13 +1,15 @@
 const userRouter = require('express').Router();
+const { requireUser } = require('../api/utils');
 const jwt = require('jsonwebtoken');
 const secret = process.env.JWT_SECRET;
 const {
     getUser,
     getUserById,
-    getAllUsers
+    getAllUsers,
+    updateUser
 } = require('../db/models/users');
 
-userRouter.get('/', async (req, res, next) => {
+userRouter.get('/', requireUser, async (req, res, next) => {
 
   const prefix = 'Bearer ';
   
@@ -49,7 +51,7 @@ userRouter.post('/login', async (req, res, next) => {
     }
 });
 
-userRouter.get('/me', async (req, res, next) => {
+userRouter.get('/me', requireUser, async (req, res, next) => {
 
     const prefix = 'Bearer ';
     
@@ -69,6 +71,35 @@ userRouter.get('/me', async (req, res, next) => {
     }
 
 });
+
+userRouter.patch('/:userId', requireUser, async (req, res, next) => {
+  try {
+    const { userId } = req.params;
+    const { newUserData } = req.body;
+
+    console.log('api for user update reached, id:', userId);
+    console.log('user data for update', newUserData)
+
+    const updatedUser = await updateUser(userId, newUserData);
+    res.send(updatedUser);
+  } catch (error) {
+    console.error(error);
+    next(error);
+  }
+
+});
+
+userRouter.delete('/:userId', requireUser, async (req, res, next) => {
+  try {
+    const { rigId } = req.params;
+    const newUserData = {status: 'inactive'}
+    const deletedUser = await updateUser(userId, newUserData);
+    res.send(deletedUser);
+  } catch (error) {
+    console.error(error);
+    next(error);
+  }
+})
 
 
 module.exports = userRouter;

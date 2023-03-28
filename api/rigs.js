@@ -23,10 +23,13 @@ rigRouter.post('/', requireUser, async (req, res, next) => {
   }
 });
 
+// now updating to inactive status instead
 rigRouter.delete('/:rigId', requireUser, async (req, res, next) => {
+  console.log('rig remove reached')
   try {
     const { rigId } = req.params;
-    const deletedRig = await destroyRig(rigId);
+    const newRigData = {status: 'inactive'}
+    const deletedRig = await updateRig(rigId, newRigData);
     res.send(deletedRig);
   } catch (error) {
     console.error(error);
@@ -38,9 +41,6 @@ rigRouter.patch('/:rigId', requireUser, async (req, res, next) => {
   try {
     const { rigId } = req.params;
     const { newRigData } = req.body;
-
-    console.log('api for rig update reached, id:', rigId);
-    console.log('rig data for update', newRigData)
 
     const updatedRig = await updateRig(rigId, newRigData);
     res.send(updatedRig);

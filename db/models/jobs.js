@@ -31,18 +31,19 @@ async function createJob(jobInfo) {
   }
 }
 
-async function destroyJob(jobId) {
-  try {
-    const { rows: [destroyedJob] } = await client.query(`
-      DELETE FROM jobs
-      WHERE id = $1
-      RETURNING *;
-      `, [jobId]);
-    return destroyedJob;
-  } catch (error) {
-    throw error;
-  }
-};
+// jobs have statuses, so we will update rather than destroy
+// async function destroyJob(jobId) {
+//   try {
+//     const { rows: [destroyedJob] } = await client.query(`
+//       DELETE FROM jobs
+//       WHERE id = $1
+//       RETURNING *;
+//       `, [jobId]);
+//     return destroyedJob;
+//   } catch (error) {
+//     throw error;
+//   }
+// };
 
 async function updateJob(jobId, jobInfo) {
   try {
@@ -64,6 +65,5 @@ async function updateJob(jobId, jobInfo) {
 module.exports = {
   getAllJobs,
   createJob,
-  destroyJob,
   updateJob
 };
