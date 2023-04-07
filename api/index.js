@@ -33,11 +33,6 @@ apiRouter.use(async (req, res, next) => {
   }
 });
 
-apiRouter.get('/', (req, res, next) => {
-  res.send({
-    message: 'API is under construction!',
-  });
-});
 
 // API routers
 
@@ -50,5 +45,10 @@ apiRouter.use('/jobs', jobRouter);
 const rigRouter = require('./rigs');
 apiRouter.use('/rigs', rigRouter);
 
+apiRouter.get('/', (req, res, next) => {
+  res.send({
+    message: 'API is under construction!',
+  });
+});
 
 module.exports = apiRouter;
