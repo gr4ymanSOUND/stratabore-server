@@ -39,6 +39,8 @@ async function buildTables() {
           "licensePlate" VARCHAR(255) NOT NULL,
           "rigType" VARCHAR(255) NOT NULL,
           "boardColor" VARCHAR(255) NOT NULL,
+          "registrationDueDate" VARCHAR(255) NOT NULL,
+          "maintenanceDueDate" VARCHAR(255) NOT NULL,
           status VARCHAR(255) NOT NULL
       );
         
@@ -75,12 +77,12 @@ async function populateInitialData() {
       console.log("finished creating users!!");
 
       const rigsToCreate = [
-        {licensePlate: 'SSS-5555', rigType: 'big', boardColor: 'red', status: 'active'},
-        {licensePlate: 'TTT-5555', rigType: 'lil', boardColor: 'green', status: 'active'},
-        {licensePlate: 'RRR-5555', rigType: 'mid', boardColor: 'blue', status: 'active'},
-        {licensePlate: 'AAA-5555', rigType: 'lil', boardColor: 'orange', status: 'active'},
-        {licensePlate: 'TTT-6666', rigType: 'big', boardColor: 'purple', status: 'active'},
-        {licensePlate: 'AAA-6666', rigType: 'big', boardColor: 'yellow', status: 'active'},
+        {licensePlate: 'SSS-5555', rigType: 'big', boardColor: 'red', registrationDueDate: "2023-05-31", maintenanceDueDate: "2023-05-31", status: 'active'},
+        {licensePlate: 'TTT-5555', rigType: 'lil', boardColor: 'green', registrationDueDate: "2023-05-28", maintenanceDueDate: "2023-05-28", status: 'active'},
+        {licensePlate: 'RRR-5555', rigType: 'mid', boardColor: 'blue', registrationDueDate: "2023-05-31", maintenanceDueDate: "2023-05-18", status: 'active'},
+        {licensePlate: 'AAA-5555', rigType: 'lil', boardColor: 'orange', registrationDueDate: "2023-05-22", maintenanceDueDate: "2023-05-20", status: 'active'},
+        {licensePlate: 'TTT-6666', rigType: 'big', boardColor: 'purple', registrationDueDate: "2023-05-25", maintenanceDueDate: "2023-05-05", status: 'active'},
+        {licensePlate: 'AAA-6666', rigType: 'big', boardColor: 'yellow', registrationDueDate: "2023-05-31", maintenanceDueDate: "2023-05-31", status: 'active'},
       ]
 
       console.log("creating rigs");
