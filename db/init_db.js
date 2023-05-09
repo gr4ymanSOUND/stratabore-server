@@ -55,10 +55,8 @@ async function buildTables() {
           "jobLength" INTEGER NOT NULL DEFAULT 1,
           "rigId" INTEGER REFERENCES rigs(id),
           status VARCHAR(255) NOT NULL,
-          "createdDate" VARCHAR(255) NOT NULL,
+          "createdDate" VARCHAR(255) NOT NULL
       );
-
-      
   `)
   } catch (error) {
     throw error;
