@@ -3,10 +3,10 @@ const client = require('../client');
 async function getAllJobsAndAssignments() {
   try {
     const {rows: allJobs} = await client.query(`
-        SELECT *
-        FROM jobs
-        LEFT JOIN job_rigs 
-          ON "jobId" = "jobId";
+      SELECT *
+      FROM jobs
+      LEFT JOIN job_rigs 
+        ON "jobId" = "jobId";
     `);
     return allJobs;
   } catch (error) {
@@ -17,10 +17,10 @@ async function getAllJobsAndAssignments() {
 async function getAssignedJobs() {
   try {
     const {rows: assignedJobs} = await client.query(`
-        SELECT *
-        FROM jobs
-        INNER JOIN job_rigs 
-          ON "jobId" = "jobId";
+      SELECT *
+      FROM jobs
+      INNER JOIN job_rigs 
+        ON "jobId" = "jobId";
     `);
     return assignedJobs;
   } catch (error) {
@@ -54,9 +54,24 @@ async function deleteJobAssignment({jobId, rigId}) {
   }
 }
 
+async function updateJobAssignment({jobId, rigId, jobDate}) {
+  try {
+    const {rows: [job_rig]} = await client.query(`
+      UPDATE job_rigs
+      SET "jobDate" = $3
+      WHERE "jobId" = $1 AND "rigId" = $2
+      RETURNING *;
+    `, [jobId, rigId, jobDate]);
+    return job_rig;
+  } catch (error) {
+    throw error;
+  }
+}
+
 module.exports = {
   getAllJobsAndAssignments,
   getAssignedJobs,
   createJobAssignment,
-  deleteJobAssignment
+  deleteJobAssignment,
+  updateJobAssignment
 }
