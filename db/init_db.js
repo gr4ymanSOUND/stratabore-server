@@ -15,6 +15,7 @@ async function buildTables() {
     // drop tables in correct order (reverse of creation, delete depending tables first)
 
       await client.query(`
+      DROP TABLE IF EXISTS job_rigs;
       DROP TABLE IF EXISTS jobs;
       DROP TABLE IF EXISTS rigs;
       DROP TABLE IF EXISTS users;
@@ -56,6 +57,13 @@ async function buildTables() {
           "rigId" INTEGER REFERENCES rigs(id),
           status VARCHAR(255) NOT NULL,
           "createdDate" VARCHAR(255) NOT NULL
+      );
+
+      CREATE TABLE job_rigs (
+          "jobId" INTEGER REFERENCES jobs(id),
+          "rigId" INTEGER REFERENCES rigs(id),
+          "jobDate" VARCHAR(255),
+          PRIMARY KEY ("jobId", "rigId")
       );
   `)
   } catch (error) {
