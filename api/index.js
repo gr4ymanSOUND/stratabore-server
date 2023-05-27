@@ -45,10 +45,13 @@ apiRouter.use('/jobs', jobRouter);
 const rigRouter = require('./rigs');
 apiRouter.use('/rigs', rigRouter);
 
-apiRouter.get('/', (req, res, next) => {
-  res.send({
-    message: 'API is under construction!',
-  });
-});
+const jobRigRouter = require('./job_rigs');
+apiRouter.use('/job_rigs', jobRigRouter);
+
+// apiRouter.get('/', (req, res, next) => {
+//   res.send({
+//     message: 'API is under construction!',
+//   });
+// });
 
 module.exports = apiRouter;

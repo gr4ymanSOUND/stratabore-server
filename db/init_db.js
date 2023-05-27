@@ -55,7 +55,6 @@ async function buildTables() {
           "numFeet" INTEGER NOT NULL DEFAULT 20,
           "jobDate" VARCHAR(255),
           "jobLength" INTEGER NOT NULL DEFAULT 1,
-          "rigId" INTEGER REFERENCES rigs(id),
           status VARCHAR(255) NOT NULL,
           "createdDate" VARCHAR(255) NOT NULL
       );
@@ -144,6 +143,10 @@ async function populateInitialData() {
       const jobAssignments = await Promise.all(jobsToAssign.map(JobRigs.createJobAssignment));
       console.log(jobAssignments);
       console.log("finished creating jobs assignments!!");
+
+      console.log('testing job_rig updates');
+      const updatedJob = await JobRigs.updateJobAssignment({jobId: 1, rigId: 1, jobDate: '2023-05-18'});
+      console.log("finished updating job", updatedJob);
 
 }
 

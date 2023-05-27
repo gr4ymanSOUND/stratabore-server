@@ -7,7 +7,7 @@ jobRouter.get('/', requireUser, async (req, res, next) => {
     const jobs = await getAllJobs();
     res.send(jobs);
   } catch (error) {
-    console.log(error);
+    console.error(error);
     res.next(error);
   }
 });
@@ -39,9 +39,6 @@ jobRouter.patch('/:jobId', requireUser, async (req, res, next) => {
   try {
     const { jobId } = req.params;
     const { newJobData } = req.body;
-
-    console.log('api for job update reached, id:', jobId);
-    console.log('job data for update', newJobData)
 
     const updatedJob = await updateJob(jobId, newJobData);
     res.send(updatedJob);
