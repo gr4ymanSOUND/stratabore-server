@@ -5,8 +5,8 @@ async function getAllJobsAndAssignments() {
     const {rows: allJobs} = await client.query(`
       SELECT *
       FROM jobs
-      LEFT JOIN job_rigs 
-        ON "jobId" = "jobId";
+      LEFT JOIN job_rigs
+        ON jobs.id = job_rigs."jobId";
     `);
     return allJobs;
   } catch (error) {
@@ -18,9 +18,9 @@ async function getAssignedJobs() {
   try {
     const {rows: assignedJobs} = await client.query(`
       SELECT *
-      FROM jobs
-      INNER JOIN job_rigs 
-        ON "jobId" = "jobId";
+      FROM job_rigs
+      INNER JOIN jobs
+        ON job_rigs."jobId" = jobs.id;
     `);
     return assignedJobs;
   } catch (error) {
