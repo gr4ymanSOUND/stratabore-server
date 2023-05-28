@@ -52,8 +52,8 @@ jobRigRouter.patch('/', requireUser, async (req, res, next) => {
 
 jobRigRouter.delete('/', requireUser, async (req, res, next) => {
   try {
-    const { jobToDelete } = req.body;
-    const deletedJob = await deleteJobAssignment(jobToDelete);
+    const { jobToUnassign } = req.body;
+    const deletedJob = await deleteJobAssignment(jobToUnassign);
     res.send(deletedJob);
   } catch (error) {
     console.error(error);

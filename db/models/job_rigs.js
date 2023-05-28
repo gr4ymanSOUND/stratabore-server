@@ -45,8 +45,7 @@ async function deleteJobAssignment({jobId, rigId}) {
   try {
     const {rows: [job_rig]} = await client.query(`
       DELETE FROM job_rigs
-      WHERE "jobId" = $1 AND "rigId" = $2
-      RETURNING *;
+      WHERE "jobId" = $1 AND "rigId" = $2;
     `, [jobId, rigId])
     return job_rig;
   } catch (error) {
