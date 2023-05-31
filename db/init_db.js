@@ -62,7 +62,7 @@ async function buildTables() {
           "jobId" INTEGER REFERENCES jobs(id),
           "rigId" INTEGER REFERENCES rigs(id),
           "jobDate" VARCHAR(255),
-          PRIMARY KEY ("jobId", "rigId")
+          PRIMARY KEY ("jobId", "rigId", "jobDate")
       );
   `)
   } catch (error) {
