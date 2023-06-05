@@ -53,7 +53,7 @@ async function buildTables() {
           location VARCHAR(255) NOT NULL,
           "numHoles" INTEGER NOT NULL DEFAULT 1,
           "numFeet" INTEGER NOT NULL DEFAULT 20,
-          "jobLength" INTEGER NOT NULL DEFAULT 1,
+          "jobLength" NUMERIC(2,1) NOT NULL DEFAULT 1,
           status VARCHAR(255) NOT NULL,
           "createdDate" VARCHAR(255) NOT NULL
       );
@@ -98,33 +98,33 @@ async function populateInitialData() {
       console.log("finished creating rigs!!");
 
       const jobsToCreate = [
-        {jobNumber: 'EWL-227', client: 'EWL', location: 'Plano, TX', numHoles: 3, numFeet: 60, jobLength: 1, status: 'pending', createdDate: '2023-01-01'},
-        {jobNumber: 'TER-321', client: 'TER', location: 'Sachse, TX', numHoles: 1, numFeet: 20, jobLength: 2, status: 'pending', createdDate: '2023-01-01'},
-        {jobNumber: 'AAA-111', client: 'AAA', location: 'Parker, TX', numHoles: 5, numFeet: 1000, jobLength: 2, status: 'pending', createdDate: '2023-01-01'},
-        {jobNumber: 'ZZZ-2626', client: 'ZZZ', location: 'Lucas, TX', numHoles: 3, numFeet: 120, jobLength: 1, status: 'pending', createdDate: '2023-01-01'},
-        {jobNumber: 'ZZZ-2627', client: 'ZZZ', location: 'Frisco, TX', numHoles: 2, numFeet: 100, jobLength: 2, status: 'pending', createdDate: '2023-01-01'},
-        {jobNumber: 'ZZZ-2628', client: 'ZZZ', location: 'McKinney, TX', numHoles: 4, numFeet: 80, jobLength: 1, status: 'pending', createdDate: '2023-01-01'},
-        {jobNumber: 'ZZZ-2629', client: 'ZZZ', location: 'Mansfield, TX', numHoles: 4, numFeet: 80, jobLength: 1, status: 'complete', createdDate: '2023-01-01'},
-        {jobNumber: 'ZZZ-2630', client: 'ZZZ', location: 'Mesquite, TX', numHoles: 3, numFeet: 60, jobLength: 1, status: 'pending', createdDate: '2023-01-01'},
-        {jobNumber: 'EWL-26', client: 'EWL', location: 'Rose Hill, TX', numHoles: 5, numFeet: 200, jobLength: 2, status: 'pending', createdDate: '2023-01-01'},
-        {jobNumber: 'EWL-2', client: 'EWL', location: 'Rowlett, TX', numHoles: 2, numFeet: 30, jobLength: 1, status: 'pending', createdDate: '2023-01-01'},
-        {jobNumber: 'ZZZ-6', client: 'ZZZ', location: 'Saginaw, TX', numHoles: 2, numFeet: 40, jobLength: 2, status: 'canceled', createdDate: '2023-01-01'},
-        {jobNumber: 'EWL-666', client: 'EWL', location: 'Burleson, TX', numHoles: 1, numFeet: 20, jobLength: 1, status: 'canceled', createdDate: '2023-01-01'},
-        {jobNumber: 'AAA-123', client: 'AAA', location: 'Ft. Worth, TX', numHoles: 3, numFeet: 60, jobLength: 1, status: 'pending', createdDate: '2023-01-01'},
-        {jobNumber: 'AAA-456', client: 'AAA', location: 'Dallas, TX', numHoles: 5, numFeet: 100, jobLength: 2, status: 'pending', createdDate: '2023-01-01'},
-        {jobNumber: 'AAA-100', client: 'AAA', location: 'Bedford, TX', numHoles: 2, numFeet: 50, jobLength: 1, status: 'pending', createdDate: '2023-01-01'},
-        {jobNumber: 'AAA-200', client: 'AAA', location: 'Cedar Hill, TX', numHoles: 2, numFeet: 50, jobLength: 1, status: 'pending', createdDate: '2023-01-01'},
-        {jobNumber: 'AAA-300', client: 'AAA', location: 'Desoto, TX', numHoles: 2, numFeet: 50, jobLength: 1, status: 'pending', createdDate: '2023-01-01'},
-        {jobNumber: 'TER-7400', client: 'TER', location: 'Haltom City, TX', numHoles: 2, numFeet: 50, jobLength: 2, status: 'pending', createdDate: '2023-01-01'},
-        {jobNumber: 'TER-222', client: 'TER', location: 'Grand Prairie, TX', numHoles: 1, numFeet: 25, jobLength: 1, status: 'pending', createdDate: '2023-01-01'},
-        {jobNumber: 'TER-987', client: 'TER', location: 'Lewisville, TX', numHoles: 3, numFeet: 75, jobLength: 2, status: 'pending', createdDate: '2023-01-01'},
-        {jobNumber: 'EWL-5454', client: 'EWL', location: 'Carrolton, TX', numHoles: 4, numFeet: 100, jobLength: 2, status: 'pending', createdDate: '2023-01-01'},
-        {jobNumber: 'EWL-1234', client: 'EWL', location: 'Flower Mound, TX', numHoles: 1, numFeet: 20, jobLength: 1, status: 'pending', createdDate: '2023-01-01'},
-        {jobNumber: 'ZZZ-999', client: 'ZZZ', location: 'Justin, TX', numHoles: 2, numFeet: 40, jobLength: 1, status: 'pending', createdDate: '2023-01-01'},
-        {jobNumber: 'ZZZ-889', client: 'ZZZ', location: 'Prosper, TX', numHoles: 1, numFeet: 20, jobLength: 1, status: 'pending', createdDate: '2023-01-01'},
-        {jobNumber: 'AAA-112', client: 'AAA', location: 'Grapevine, TX', numHoles: 1, numFeet: 50, jobLength: 1, status: 'pending', createdDate: '2023-01-01'},
-        {jobNumber: 'AAA-567', client: 'AAA', location: 'Crowley, TX', numHoles: 2, numFeet: 100, jobLength: 2, status: 'pending', createdDate: '2023-01-01'},
-        {jobNumber: 'EWL-876', client: 'EWL', location: 'Midlothian, TX', numHoles: 4, numFeet: 200, jobLength: 2, status: 'pending', createdDate: '2023-01-01'},
+        {jobNumber: 'EWL-227', client: 'EWL', location: 'Plano, TX', numHoles: 3, numFeet: 60, jobLength: 0.5, status: 'pending', createdDate: '2023-01-01'},
+        {jobNumber: 'TER-321', client: 'TER', location: 'Sachse, TX', numHoles: 1, numFeet: 20, jobLength: 1.0, status: 'pending', createdDate: '2023-01-01'},
+        {jobNumber: 'AAA-111', client: 'AAA', location: 'Parker, TX', numHoles: 5, numFeet: 1000, jobLength: 1.0, status: 'pending', createdDate: '2023-01-01'},
+        {jobNumber: 'ZZZ-2626', client: 'ZZZ', location: 'Lucas, TX', numHoles: 3, numFeet: 120, jobLength: 1.0, status: 'pending', createdDate: '2023-01-01'},
+        {jobNumber: 'ZZZ-2627', client: 'ZZZ', location: 'Frisco, TX', numHoles: 2, numFeet: 100, jobLength: 0.5, status: 'pending', createdDate: '2023-01-01'},
+        {jobNumber: 'ZZZ-2628', client: 'ZZZ', location: 'McKinney, TX', numHoles: 4, numFeet: 80, jobLength: 0.7, status: 'pending', createdDate: '2023-01-01'},
+        {jobNumber: 'ZZZ-2629', client: 'ZZZ', location: 'Mansfield, TX', numHoles: 4, numFeet: 80, jobLength: 0.3, status: 'complete', createdDate: '2023-01-01'},
+        {jobNumber: 'ZZZ-2630', client: 'ZZZ', location: 'Mesquite, TX', numHoles: 3, numFeet: 60, jobLength: 1.0, status: 'pending', createdDate: '2023-01-01'},
+        {jobNumber: 'EWL-26', client: 'EWL', location: 'Rose Hill, TX', numHoles: 5, numFeet: 200, jobLength: 1.0, status: 'pending', createdDate: '2023-01-01'},
+        {jobNumber: 'EWL-2', client: 'EWL', location: 'Rowlett, TX', numHoles: 2, numFeet: 30, jobLength: 0.5, status: 'pending', createdDate: '2023-01-01'},
+        {jobNumber: 'ZZZ-6', client: 'ZZZ', location: 'Saginaw, TX', numHoles: 2, numFeet: 40, jobLength: 0.6, status: 'canceled', createdDate: '2023-01-01'},
+        {jobNumber: 'EWL-666', client: 'EWL', location: 'Burleson, TX', numHoles: 1, numFeet: 20, jobLength: 0.8, status: 'canceled', createdDate: '2023-01-01'},
+        {jobNumber: 'AAA-123', client: 'AAA', location: 'Ft. Worth, TX', numHoles: 3, numFeet: 60, jobLength: 0.8, status: 'pending', createdDate: '2023-01-01'},
+        {jobNumber: 'AAA-456', client: 'AAA', location: 'Dallas, TX', numHoles: 5, numFeet: 100, jobLength: 1.0, status: 'pending', createdDate: '2023-01-01'},
+        {jobNumber: 'AAA-100', client: 'AAA', location: 'Bedford, TX', numHoles: 2, numFeet: 50, jobLength: 0.7, status: 'pending', createdDate: '2023-01-01'},
+        {jobNumber: 'AAA-200', client: 'AAA', location: 'Cedar Hill, TX', numHoles: 2, numFeet: 50, jobLength: 0.7, status: 'pending', createdDate: '2023-01-01'},
+        {jobNumber: 'AAA-300', client: 'AAA', location: 'Desoto, TX', numHoles: 2, numFeet: 50, jobLength: 0.3, status: 'pending', createdDate: '2023-01-01'},
+        {jobNumber: 'TER-7400', client: 'TER', location: 'Haltom City, TX', numHoles: 2, numFeet: 50, jobLength: 1.0, status: 'pending', createdDate: '2023-01-01'},
+        {jobNumber: 'TER-222', client: 'TER', location: 'Grand Prairie, TX', numHoles: 1, numFeet: 25, jobLength: 1.0, status: 'pending', createdDate: '2023-01-01'},
+        {jobNumber: 'TER-987', client: 'TER', location: 'Lewisville, TX', numHoles: 3, numFeet: 75, jobLength: 0.5, status: 'pending', createdDate: '2023-01-01'},
+        {jobNumber: 'EWL-5454', client: 'EWL', location: 'Carrolton, TX', numHoles: 4, numFeet: 100, jobLength: 1.0, status: 'pending', createdDate: '2023-01-01'},
+        {jobNumber: 'EWL-1234', client: 'EWL', location: 'Flower Mound, TX', numHoles: 1, numFeet: 20, jobLength: 0.5, status: 'pending', createdDate: '2023-01-01'},
+        {jobNumber: 'ZZZ-999', client: 'ZZZ', location: 'Justin, TX', numHoles: 2, numFeet: 40, jobLength: 0.5, status: 'pending', createdDate: '2023-01-01'},
+        {jobNumber: 'ZZZ-889', client: 'ZZZ', location: 'Prosper, TX', numHoles: 1, numFeet: 20, jobLength: 0.5, status: 'pending', createdDate: '2023-01-01'},
+        {jobNumber: 'AAA-112', client: 'AAA', location: 'Grapevine, TX', numHoles: 1, numFeet: 50, jobLength: 0.5, status: 'pending', createdDate: '2023-01-01'},
+        {jobNumber: 'AAA-567', client: 'AAA', location: 'Crowley, TX', numHoles: 2, numFeet: 100, jobLength: 1.0, status: 'pending', createdDate: '2023-01-01'},
+        {jobNumber: 'EWL-876', client: 'EWL', location: 'Midlothian, TX', numHoles: 4, numFeet: 200, jobLength: 1.0, status: 'pending', createdDate: '2023-01-01'},
       ];
 
       console.log("creating jobs");
@@ -133,9 +133,9 @@ async function populateInitialData() {
       console.log("finished creating jobs!!");
 
       const jobsToAssign = [
-        {jobId: 1, rigId: 1, jobDate: '2023-05-19'},
-        {jobId: 2, rigId: 1, jobDate: '2023-05-19'},
-        {jobId: 2, rigId: 2, jobDate: '2023-05-19'}
+        {jobId: 1, rigId: 1, jobDate: '2023-06-19'},
+        {jobId: 2, rigId: 1, jobDate: '2023-06-19'},
+        {jobId: 2, rigId: 2, jobDate: '2023-06-19'}
       ]
 
       console.log("creating job assignments");
@@ -144,7 +144,7 @@ async function populateInitialData() {
       console.log("finished creating jobs assignments!!");
 
       console.log('testing job_rig updates');
-      const updatedJob = await JobRigs.updateJobAssignment({jobId: 1, rigId: 1, jobDate: '2023-05-18'});
+      const updatedJob = await JobRigs.updateJobAssignment({jobId: 1, rigId: 1, jobDate: '2023-06-18'});
       console.log("finished updating job", updatedJob);
 
 }
