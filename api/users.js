@@ -90,7 +90,7 @@ userRouter.patch('/:userId', requireUser, async (req, res, next) => {
 
 userRouter.delete('/:userId', requireUser, async (req, res, next) => {
   try {
-    const { rigId } = req.params;
+    const { userId } = req.params;
     const newUserData = {status: 'inactive'}
     const deletedUser = await updateUser(userId, newUserData);
     res.send(deletedUser);
