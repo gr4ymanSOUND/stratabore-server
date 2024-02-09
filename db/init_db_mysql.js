@@ -1,79 +1,98 @@
 import { pool } from './connectionpool.js'
 
 // will need to rewrite and reorganize these imports to use modules
-const {
-    client,
-    Users,
-    Jobs,
-    Rigs,
-    // declare your model imports here
-    // for example, User
-} = require('./');
-const JobRigs = require('./models/job_rigs')
+// const {
+//     client,
+//     Users,
+//     Jobs,
+//     Rigs,
+//     // declare your model imports here
+//     // for example, User
+// } = require('./index.js');
+// const JobRigs = require('./models/job_rigs.js')
 
 
 async function buildTables() {
   try {
 
     // start of new MySQL syntax
+
+    // connect to stratabore database
     await pool.query(`
       USE stratabore;
     `);
     
-    client.connect();
-
     // drop tables in correct order (reverse of creation, delete depending tables first)
+    // can only do one query per pool connect
 
-      await client.query(`
+    await pool.query(`
       DROP TABLE IF EXISTS job_rigs;
+    `);
+
+    await pool.query(`
       DROP TABLE IF EXISTS jobs;
+    `);
+
+    await pool.query(`
       DROP TABLE IF EXISTS rigs;
+    `);
+
+    await pool.query(`
       DROP TABLE IF EXISTS users;
-      `)
+    `);
 
     // build tables in correct order
 
-    await client.query(`
+    await pool.query(`
       CREATE TABLE users (
-          id SERIAL PRIMARY KEY,
-          "firstName" VARCHAR(255) NOT NULL,
-          "lastName" VARCHAR(255) NOT NULL,
+          id integer PRIMARY KEY AUTO_INCREMENT,
+          first_name VARCHAR(255) NOT NULL,
+          last_name VARCHAR(255) NOT NULL,
           email VARCHAR(255) UNIQUE NOT NULL, 
-          "userName" VARCHAR(255) UNIQUE NOT NULL, 
+          username VARCHAR(255) UNIQUE NOT NULL, 
           password VARCHAR(255) UNIQUE NOT NULL,
-          "isAdmin" BOOLEAN DEFAULT false,
+          is_admin BOOLEAN DEFAULT false,
           status VARCHAR(255) NOT NULL
         );
+    `);
     
+    await pool.query(`  
       CREATE TABLE rigs (
-          id SERIAL PRIMARY KEY,
-          "licensePlate" VARCHAR(255) NOT NULL,
-          "rigType" VARCHAR(255) NOT NULL,
-          "boardColor" VARCHAR(255) NOT NULL,
-          "registrationDueDate" VARCHAR(255) NOT NULL,
-          "maintenanceDueDate" VARCHAR(255) NOT NULL,
+          id integer PRIMARY KEY AUTO_INCREMENT,
+          license_plate VARCHAR(255) NOT NULL,
+          rig_type VARCHAR(255) NOT NULL,
+          board_color VARCHAR(255) NOT NULL,
+          registration_due VARCHAR(255) NOT NULL,
+          maintenance_due VARCHAR(255) NOT NULL,
           status VARCHAR(255) NOT NULL
       );
-        
+    `);
+
+    await pool.query(`    
       CREATE TABLE jobs (
-          id SERIAL PRIMARY KEY,
-          "jobNumber" VARCHAR(255) UNIQUE NOT NULL,
+          id integer PRIMARY KEY AUTO_INCREMENT,
+          job_number VARCHAR(255) UNIQUE NOT NULL,
           client VARCHAR(255) NOT NULL,
           location VARCHAR(255) NOT NULL,
-          "numHoles" INTEGER NOT NULL DEFAULT 1,
-          "numFeet" INTEGER NOT NULL DEFAULT 20,
-          "jobLength" NUMERIC(2,1) NOT NULL DEFAULT 1,
+          num_holes INTEGER NOT NULL DEFAULT 1,
+          num_feet INTEGER NOT NULL DEFAULT 20,
+          job_length NUMERIC(2,1) NOT NULL DEFAULT 1,
           status VARCHAR(255) NOT NULL,
-          "createdDate" VARCHAR(255) NOT NULL
+          created_date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
       );
+    `);
 
+    await pool.query(`
       CREATE TABLE job_rigs (
-          "jobId" INTEGER REFERENCES jobs(id),
-          "rigId" INTEGER REFERENCES rigs(id),
-          "jobDate" VARCHAR(255),
-          PRIMARY KEY ("jobId", "rigId", "jobDate")
+          job_date VARCHAR(255),
+          job_id INTEGER NOT NULL,
+          rig_id INTEGER NOT NULL,
+          FOREIGN KEY (job_id) REFERENCES jobs(id),
+          FOREIGN KEY (rig_id) REFERENCES rigs(id),
+          PRIMARY KEY (job_id, rig_id, job_date)
       );
-  `)
+    `);
+
   } catch (error) {
     throw error;
   }
@@ -159,6 +178,5 @@ async function populateInitialData() {
 }
 
 buildTables()
-  .then(populateInitialData)
+  // .then(populateInitialData)
   .catch(console.error)
-  .finally(() => client.end());
