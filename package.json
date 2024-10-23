@@ -1,9 +1,9 @@
 {
-  "name": "stratabore-app",
+  "name": "stratabore-server",
   "version": "1.0.0",
   "description": "",
   "type": "module",
-  "main": "index.js",
+  "main": "loader.cjs",
   "scripts": {
     "server:dev": "nodemon index.js",
     "db:build": "node ./db/init_db",
@@ -14,8 +14,10 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@mapbox/node-pre-gyp": "^1.0.11",
     "axios": "^1.1.3",
     "bcrypt": "^5.1.0",
+    "bcryptjs": "^2.4.3",
     "concurrently": "^7.5.0",
     "cors": "^2.8.5",
     "dotenv": "^16.0.3",

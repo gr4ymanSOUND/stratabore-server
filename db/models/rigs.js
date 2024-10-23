@@ -1,4 +1,6 @@
-const client = require('../client');
+// const client = require('../client');
+import { pool } from '../connectionpool.js'
+
 
 async function getAllRigs() {
   try {
@@ -67,7 +69,13 @@ async function updateRig(rigId, rigInfo) {
   }
 }
 
-module.exports = {
+// module.exports = {
+//   getAllRigs,
+//   createRig,
+//   updateRig
+// };
+
+export {
   getAllRigs,
   createRig,
   updateRig

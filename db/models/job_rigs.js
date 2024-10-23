@@ -1,4 +1,6 @@
-const client = require('../client');
+// const client = require('../client');
+import { pool } from '../connectionpool.js'
+
 
 async function getAllJobsAndAssignments() {
   try {
@@ -67,10 +69,18 @@ async function updateJobAssignment({jobId, rigId, jobDate}) {
   }
 }
 
-module.exports = {
+// module.exports = {
+//   getAllJobsAndAssignments,
+//   getAssignedJobs,
+//   createJobAssignment,
+//   deleteJobAssignment,
+//   updateJobAssignment
+// }
+
+export {
   getAllJobsAndAssignments,
   getAssignedJobs,
   createJobAssignment,
   deleteJobAssignment,
   updateJobAssignment
-}
+};

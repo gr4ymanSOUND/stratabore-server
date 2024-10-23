@@ -1,6 +1,12 @@
-const jobRouter = require('express').Router();
-const { requireUser } = require('../api/utils');
-const { getAllJobs, createJob, destroyJob, updateJob } = require('../db/models/jobs');
+
+import express from 'express';
+const jobRouter = express.Router();
+import { requireUser } from'../api/utils.js';
+import { 
+  getAllJobs, 
+  createJob, 
+  updateJob
+ } from '../db/models/jobs.js';
 
 jobRouter.get('/', requireUser, async (req, res, next) => {
   try {
@@ -48,4 +54,5 @@ jobRouter.patch('/:jobId', requireUser, async (req, res, next) => {
   }
 })
 
-module.exports = jobRouter;
+// module.exports = jobRouter;
+export { jobRouter };

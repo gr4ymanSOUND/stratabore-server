@@ -48,4 +48,5 @@ rigRouter.patch('/:rigId', requireUser, async (req, res, next) => {
   }
 })
 
-module.exports = rigRouter;
+// module.exports = rigRouter;
+export { rigRouter };

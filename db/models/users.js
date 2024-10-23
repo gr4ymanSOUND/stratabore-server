@@ -1,6 +1,10 @@
 // grab our db client connection to use with our adapters
-const client = require('../client');
-const bcrypt = require('bcrypt');
+// const client = require('../client');
+import { pool } from '../connectionpool.js'
+
+
+import bcrypt from 'bcryptjs';
+// const bcrypt = require('bcrypt');
 const SALT = 13;
 
 async function getAllUsers() {
@@ -110,7 +114,16 @@ async function getAllUsers() {
     }
   }
   
-  module.exports = {
+  // module.exports = {
+  //   getAllUsers,
+  //   getUser,
+  //   getUserById,
+  //   getUserByUserName,
+  //   createUser,
+  //   updateUser
+  // };
+
+  export {
     getAllUsers,
     getUser,
     getUserById,

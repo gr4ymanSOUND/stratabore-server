@@ -101,4 +101,5 @@ userRouter.delete('/:userId', requireUser, async (req, res, next) => {
 })
 
 
-module.exports = userRouter;
+// module.exports = userRouter;
+export { userRouter };

@@ -61,4 +61,5 @@ jobRigRouter.delete('/', requireUser, async (req, res, next) => {
   }
 });
 
-module.exports = jobRigRouter;
+// module.exports = jobRigRouter;
+export { jobRigRouter };
