@@ -9,7 +9,7 @@ const SALT = 13;
 
 async function getAllUsers() {
     try {
-      const {rows: allUsers} = await pool.query(`
+      const {rows: allUsers} = await client.query(`
         SELECT id, "firstName", "lastName", email, "userName", "isAdmin", status
         FROM users;
       `);
@@ -22,7 +22,7 @@ async function getAllUsers() {
   async function getUser({ userName, password }) {
   
     try {
-      const {rows: [user]}= await pool.query(`
+      const {rows: [user]}= await client.query(`
         SELECT *
         FROM users
         WHERE "userName" = $1;
@@ -54,7 +54,7 @@ async function getAllUsers() {
         (key) => `"${ key }"`
       ).join(', ');
   
-      const {rows: [newUser]} = await pool.query(`
+      const {rows: [newUser]} = await client.query(`
         INSERT INTO users (${keyString})
         VALUES (${valueString})
         RETURNING *;
@@ -69,7 +69,7 @@ async function getAllUsers() {
   
   async function getUserById(id) {
     try {
-      const {rows: [user]} = await pool.query(`
+      const {rows: [user]} = await client.query(`
         SELECT *
         FROM users
         WHERE id = $1;
@@ -84,7 +84,7 @@ async function getAllUsers() {
   
   async function getUserByUserName(userName) {
     try {
-      const {rows: [user]}= await pool.query(`
+      const {rows: [user]}= await client.query(`
         SELECT *
         FROM users
         WHERE "userName" = $1;
@@ -102,7 +102,7 @@ async function getAllUsers() {
       const valueString = Object.keys(userInfo).map(
         (key, index) => `"${key}" = '${userInfo[key]}'`
       ).join(', ');
-      const { rows: [updatedUser] } = await pool.query(`
+      const { rows: [updatedUser] } = await client.query(`
         UPDATE users
         SET ${valueString}
         WHERE id = $1
