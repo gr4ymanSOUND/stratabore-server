@@ -1,14 +1,15 @@
-const userRouter = require('express').Router();
-const { requireUser } = require('../api/utils');
-const jwt = require('jsonwebtoken');
+import express from 'express';
+const userRouter = express.Router();
+import { requireUser } from'../api/utils.js';
+import jwt from 'jsonwebtoken';
 const secret = process.env.JWT_SECRET;
-const {
+import {
     getUser,
     getUserById,
     getAllUsers,
     updateUser,
     createUser
-} = require('../db/models/users');
+} from '../db/models/users.js';
 
 userRouter.get('/', requireUser, async (req, res, next) => {
   const prefix = 'Bearer ';

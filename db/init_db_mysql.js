@@ -1,15 +1,11 @@
 import { pool } from './connectionpool.js'
 
 // will need to rewrite and reorganize these imports to use modules
-// const {
-//     client,
-//     Users,
-//     Jobs,
-//     Rigs,
-//     // declare your model imports here
-//     // for example, User
-// } = require('./index.js');
-// const JobRigs = require('./models/job_rigs.js')
+
+import Users from './models/users.js';
+import Rigs from './models/rigs.js';
+import Jobs from './models/jobs.js';
+import JobRigs from './models/job_rigs.js';
 
 
 async function buildTables() {
@@ -178,5 +174,5 @@ async function populateInitialData() {
 }
 
 buildTables()
-  // .then(populateInitialData)
+  .then(populateInitialData)
   .catch(console.error)

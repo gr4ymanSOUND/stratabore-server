@@ -1,6 +1,7 @@
-const rigRouter = require('express').Router();
-const { requireUser } = require('../api/utils');
-const { getAllRigs, createRig, destroyRig, updateRig } = require('../db/models/rigs');
+import express from 'express';
+const rigRouter = express.Router();
+import { requireUser } from './utils.js'
+import { getAllRigs, createRig, updateRig } from '../db/models/rigs.js';
 
 rigRouter.get('/', requireUser, async (req, res, next) => {
   try {

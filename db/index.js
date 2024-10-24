@@ -1,11 +1,12 @@
-const client = require('./client');
-const models = require('./models');
+// import models from './models';
 
-// module.exports = {
-//   client
+// // module.exports = {
+// //   client
+// // };
+
+// export {
+//   ...models,
 // };
 
-module.exports = {
-  client,
-  ...models,
-};
+
+// file no longer in use, switched export style

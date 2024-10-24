@@ -8,7 +8,7 @@ import mysql from 'mysql2';
   }).promise();
 
   // for the live environment
-  // couldn't get the node_env variable (prod vs dev) to work correctly for some reason, so just switching between which is commented when I make a build for uploading
+  // in another project hosted on same server , Icouldn't get the node_env variable (prod vs dev) to work correctly for some reason, so just switching between which is commented when I make a build for uploading
   // const pool = mysql.createPool({
   //   host: process.env.MYSQL_HOST,
   //   user: process.env.MYSQL_USER,

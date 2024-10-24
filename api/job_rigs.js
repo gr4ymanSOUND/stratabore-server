@@ -1,12 +1,13 @@
-const jobRigRouter = require('express').Router();
-const { requireUser } = require('../api/utils');
-const {
+import express from 'express';
+const jobRigRouter = express.Router();
+import { requireUser } from './utils.js'
+import {
   getAllJobsAndAssignments,
   getAssignedJobs,
   createJobAssignment,
   deleteJobAssignment,
   updateJobAssignment
-} = require('../db/models/job_rigs');
+} from '../db/models/job_rigs.js';
 
 jobRigRouter.get('/all', requireUser, async (req, res, next) => {
   try {

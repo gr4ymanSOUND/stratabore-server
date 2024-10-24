@@ -24,7 +24,7 @@ server.use(express.static(path.join(__dirname, 'build')));
 
 // here's our API
 import { apiRouter } from './api/index.js';
-server.use('/api', require('./api'));
+server.use('/api', apiRouter);
 
 // by default serve up the react app if we don't recognize the route
 // server.use((req, res, next) => {
