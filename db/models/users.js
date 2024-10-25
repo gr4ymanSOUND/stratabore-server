@@ -1,18 +1,21 @@
 // grab our db client connection to use with our adapters
 // const client = require('../client');
 import { pool } from '../connectionpool.js'
-
-
 import bcrypt from 'bcryptjs';
 // const bcrypt = require('bcrypt');
 const SALT = 13;
 
 async function getAllUsers() {
     try {
-      const {rows: allUsers} = await pool.query(`
-        SELECT id, "firstName", "lastName", email, "userName", "isAdmin", status
+      const [ allUsers ] = await pool.query(`
+        SELECT id, first_name, last_name, email, username, is_admin, status
         FROM users;
       `);
+
+      if (!allUsers) {
+        throw new Error('issue logging in');
+      };
+
       return allUsers;
     } catch (error) {
       throw error;
@@ -22,10 +25,10 @@ async function getAllUsers() {
   async function getUser({ userName, password }) {
   
     try {
-      const {rows: [user]}= await pool.query(`
+      const [ [user] ]= await pool.query(`
         SELECT *
         FROM users
-        WHERE "userName" = $1;
+        WHERE username = ?;
       `, [userName]);
       
       if (!user) {
@@ -47,20 +50,20 @@ async function getAllUsers() {
       const hashedPassword = await bcrypt.hash(userInfo.password, SALT);
       userInfo.password = hashedPassword;
       const valueString = Object.keys(userInfo).map(
-        (key, index) => `$${ index+1 }`
+        (key, index) => `?`
       ).join(', ');
   
     const keyString = Object.keys(userInfo).map(
-        (key) => `"${ key }"`
+        (key) => `${ key }`
       ).join(', ');
   
-      const {rows: [newUser]} = await pool.query(`
+      const [ createdUser ] = await pool.query(`
         INSERT INTO users (${keyString})
         VALUES (${valueString})
-        RETURNING *;
       `, Object.values(userInfo));
   
-      delete newUser.password;
+      const newUserId = createdUser.insertId;
+      const newUser = await getUserById(newUserId);
       return newUser;
     } catch (error) {
       throw error;
@@ -69,14 +72,19 @@ async function getAllUsers() {
   
   async function getUserById(id) {
     try {
-      const {rows: [user]} = await pool.query(`
+      const [ user ] = await pool.query(`
         SELECT *
         FROM users
-        WHERE id = $1;
+        WHERE id = ?;
       `, [id]);
   
-      delete user.password;
-      return user;
+      // this is required because I was unable to destructure 2 layers into the nested arrays to access the actual user object like I did in the "getUser" function above
+      // this should be functionally equivalient to doing "const [[user]]" in the pool.query
+      const userDestructured = user[0];
+
+
+      delete userDestructured.password;
+      return userDestructured;
     } catch (error) {
       throw error;
     }
@@ -84,10 +92,10 @@ async function getAllUsers() {
   
   async function getUserByUserName(userName) {
     try {
-      const {rows: [user]}= await pool.query(`
+      const [ user ] = await pool.query(`
         SELECT *
         FROM users
-        WHERE "userName" = $1;
+        WHERE username = ?;
       `, [userName]);
       
       delete user.password;
@@ -100,14 +108,22 @@ async function getAllUsers() {
   async function updateUser(userId, userInfo) {
     try {
       const valueString = Object.keys(userInfo).map(
-        (key, index) => `"${key}" = '${userInfo[key]}'`
+        (key, index) => {
+          // special case for the is_admin field - since it's boolean, we need to remove the quotes from the 2nd half of the entry
+          if (key == 'is_admin') {
+            return `${key} = ${userInfo[key]}`
+          }
+          return `${key} = '${userInfo[key]}'`
+        }
       ).join(', ');
-      const { rows: [updatedUser] } = await pool.query(`
+
+      const [ results ] = await pool.query(`
         UPDATE users
         SET ${valueString}
-        WHERE id = $1
-        RETURNING *;
+        WHERE id = ?;
       `, [userId]);
+
+      const updatedUser = await getUserById(userId);
       return updatedUser;
     } catch (error) {
       throw error;

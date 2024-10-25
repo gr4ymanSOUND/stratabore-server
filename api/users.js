@@ -11,21 +11,27 @@ import {
     createUser
 } from '../db/models/users.js';
 
-userRouter.get('/', requireUser, async (req, res, next) => {
+userRouter.get('/', async (req, res, next) => {
   const prefix = 'Bearer ';
-  try {
-    const auth = req.headers.authorization;
-    const token = auth.slice(prefix.length);
-    let authorizedUser = jwt.verify(token, secret);
-    if (authorizedUser.username) {
-      const allUsers = await getAllUsers();
-      res.send(allUsers)
-    } else {
-      throw new Error('error getting all user info');
-    }
-  } catch (error) {
-    next(error);
-  }
+  const allUsers = await getAllUsers();
+  console.log('test in api', allUsers);
+  res.send(allUsers)
+
+// FOR SECURITY LATER
+  // add "requireUser" back to start of get call, then include
+  // try {
+  //   const auth = req.headers.authorization;
+  //   const token = auth.slice(prefix.length);
+  //   let authorizedUser = jwt.verify(token, secret);
+  //   if (authorizedUser.username) {
+  //     const allUsers = await getAllUsers();
+  //     res.send(allUsers)
+  //   } else {
+  //     throw new Error('error getting all user info');
+  //   }
+  // } catch (error) {
+  //   next(error);
+  // }
 });
 
 // create new users from the user form

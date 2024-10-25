@@ -97,9 +97,9 @@ async function buildTables() {
 async function populateInitialData() {
 
     const usersToCreate =   [
-        {firstName:'Tommy', lastName:'Lawrence', email:'tommy@stratabore.com', userName:'bossman', password:'bossmanistheboss', isAdmin: true , status: 'active'},
-        {firstName:'Austin', lastName:'Lawrence', email:'austin.lawrence.al@gmail.com', userName:'coolhatguy', password:'ochocinco', isAdmin: true, status: 'active'},
-        {firstName:'Meghan', lastName:'Lawrence', email:'test@email.email', userName:'meguhman', password:'dotterbore', isAdmin: false, status: 'active'}
+        {first_name:'Tommy', last_name:'Lawrence', email:'tommy@stratabore.com', username:'bossman', password:'bossmanistheboss', is_admin: true , status: 'active'},
+        {first_name:'Austin', last_name:'Lawrence', email:'austin.lawrence.al@gmail.com', username:'coolhatguy', password:'ochocinco', is_admin: true, status: 'active'},
+        {first_name:'Meghan', last_name:'Lawrence', email:'test@email.email', username:'meguhman', password:'dotterbore', is_admin: false, status: 'active'}
       ];
  
       console.log("creating users");
