@@ -107,54 +107,54 @@ async function populateInitialData() {
       console.log(users);
       console.log("finished creating users!!");
 
-      // const rigsToCreate = [
-      //   {licensePlate: 'SSS-5555', rigType: 'big', boardColor: 'red', registrationDueDate: "2023-05-31", maintenanceDueDate: "2023-05-31", status: 'active'},
-      //   {licensePlate: 'TTT-5555', rigType: 'lil', boardColor: 'green', registrationDueDate: "2023-05-28", maintenanceDueDate: "2023-05-28", status: 'active'},
-      //   {licensePlate: 'RRR-5555', rigType: 'mid', boardColor: 'blue', registrationDueDate: "2023-05-31", maintenanceDueDate: "2023-05-18", status: 'active'},
-      //   {licensePlate: 'AAA-5555', rigType: 'lil', boardColor: 'orange', registrationDueDate: "2023-05-22", maintenanceDueDate: "2023-05-20", status: 'active'},
-      //   {licensePlate: 'TTT-6666', rigType: 'big', boardColor: 'purple', registrationDueDate: "2023-05-25", maintenanceDueDate: "2023-05-05", status: 'active'},
-      //   {licensePlate: 'AAA-6666', rigType: 'big', boardColor: 'yellow', registrationDueDate: "2023-05-31", maintenanceDueDate: "2023-05-31", status: 'active'},
-      // ]
+      const rigsToCreate = [
+        {license_plate: 'SSS-5555', rig_type: 'big', board_color: 'red', registration_due: "2023-05-31", maintenance_due: "2023-05-31", status: 'active'},
+        {license_plate: 'TTT-5555', rig_type: 'lil', board_color: 'green', registration_due: "2023-05-28", maintenance_due: "2023-05-28", status: 'active'},
+        {license_plate: 'RRR-5555', rig_type: 'mid', board_color: 'blue', registration_due: "2023-05-31", maintenance_due: "2023-05-18", status: 'active'},
+        {license_plate: 'AAA-5555', rig_type: 'lil', board_color: 'orange', registration_due: "2023-05-22", maintenance_due: "2023-05-20", status: 'active'},
+        {license_plate: 'TTT-6666', rig_type: 'big', board_color: 'purple', registration_due: "2023-05-25", maintenance_due: "2023-05-05", status: 'active'},
+        {license_plate: 'AAA-6666', rig_type: 'big', board_color: 'yellow', registration_due: "2023-05-31", maintenance_due: "2023-05-31", status: 'active'},
+      ]
 
-      // console.log("creating rigs");
-      // const rigs = await Promise.all(rigsToCreate.map(Rigs.createRig)); 
-      // console.log(rigs);
-      // console.log("finished creating rigs!!");
+      console.log("creating rigs");
+      const rigs = await Promise.all(rigsToCreate.map(Rigs.createRig)); 
+      console.log(rigs);
+      console.log("finished creating rigs!!");
 
-      // const jobsToCreate = [
-      //   {jobNumber: 'EWL-227', client: 'EWL', location: 'Plano, TX', numHoles: 3, numFeet: 60, jobLength: 0.5, status: 'pending', createdDate: '2023-01-01'},
-      //   {jobNumber: 'TER-321', client: 'TER', location: 'Sachse, TX', numHoles: 1, numFeet: 20, jobLength: 1.0, status: 'pending', createdDate: '2023-01-01'},
-      //   {jobNumber: 'AAA-111', client: 'AAA', location: 'Parker, TX', numHoles: 5, numFeet: 1000, jobLength: 1.0, status: 'pending', createdDate: '2023-01-01'},
-      //   {jobNumber: 'ZZZ-2626', client: 'ZZZ', location: 'Lucas, TX', numHoles: 3, numFeet: 120, jobLength: 1.0, status: 'pending', createdDate: '2023-01-01'},
-      //   {jobNumber: 'ZZZ-2627', client: 'ZZZ', location: 'Frisco, TX', numHoles: 2, numFeet: 100, jobLength: 0.5, status: 'pending', createdDate: '2023-01-01'},
-      //   {jobNumber: 'ZZZ-2628', client: 'ZZZ', location: 'McKinney, TX', numHoles: 4, numFeet: 80, jobLength: 0.7, status: 'pending', createdDate: '2023-01-01'},
-      //   {jobNumber: 'ZZZ-2629', client: 'ZZZ', location: 'Mansfield, TX', numHoles: 4, numFeet: 80, jobLength: 0.3, status: 'complete', createdDate: '2023-01-01'},
-      //   {jobNumber: 'ZZZ-2630', client: 'ZZZ', location: 'Mesquite, TX', numHoles: 3, numFeet: 60, jobLength: 1.0, status: 'pending', createdDate: '2023-01-01'},
-      //   {jobNumber: 'EWL-26', client: 'EWL', location: 'Rose Hill, TX', numHoles: 5, numFeet: 200, jobLength: 1.0, status: 'pending', createdDate: '2023-01-01'},
-      //   {jobNumber: 'EWL-2', client: 'EWL', location: 'Rowlett, TX', numHoles: 2, numFeet: 30, jobLength: 0.5, status: 'pending', createdDate: '2023-01-01'},
-      //   {jobNumber: 'ZZZ-6', client: 'ZZZ', location: 'Saginaw, TX', numHoles: 2, numFeet: 40, jobLength: 0.6, status: 'canceled', createdDate: '2023-01-01'},
-      //   {jobNumber: 'EWL-666', client: 'EWL', location: 'Burleson, TX', numHoles: 1, numFeet: 20, jobLength: 0.8, status: 'canceled', createdDate: '2023-01-01'},
-      //   {jobNumber: 'AAA-123', client: 'AAA', location: 'Ft. Worth, TX', numHoles: 3, numFeet: 60, jobLength: 0.8, status: 'pending', createdDate: '2023-01-01'},
-      //   {jobNumber: 'AAA-456', client: 'AAA', location: 'Dallas, TX', numHoles: 5, numFeet: 100, jobLength: 1.0, status: 'pending', createdDate: '2023-01-01'},
-      //   {jobNumber: 'AAA-100', client: 'AAA', location: 'Bedford, TX', numHoles: 2, numFeet: 50, jobLength: 0.7, status: 'pending', createdDate: '2023-01-01'},
-      //   {jobNumber: 'AAA-200', client: 'AAA', location: 'Cedar Hill, TX', numHoles: 2, numFeet: 50, jobLength: 0.7, status: 'pending', createdDate: '2023-01-01'},
-      //   {jobNumber: 'AAA-300', client: 'AAA', location: 'Desoto, TX', numHoles: 2, numFeet: 50, jobLength: 0.3, status: 'pending', createdDate: '2023-01-01'},
-      //   {jobNumber: 'TER-7400', client: 'TER', location: 'Haltom City, TX', numHoles: 2, numFeet: 50, jobLength: 1.0, status: 'pending', createdDate: '2023-01-01'},
-      //   {jobNumber: 'TER-222', client: 'TER', location: 'Grand Prairie, TX', numHoles: 1, numFeet: 25, jobLength: 1.0, status: 'pending', createdDate: '2023-01-01'},
-      //   {jobNumber: 'TER-987', client: 'TER', location: 'Lewisville, TX', numHoles: 3, numFeet: 75, jobLength: 0.5, status: 'pending', createdDate: '2023-01-01'},
-      //   {jobNumber: 'EWL-5454', client: 'EWL', location: 'Carrolton, TX', numHoles: 4, numFeet: 100, jobLength: 1.0, status: 'pending', createdDate: '2023-01-01'},
-      //   {jobNumber: 'EWL-1234', client: 'EWL', location: 'Flower Mound, TX', numHoles: 1, numFeet: 20, jobLength: 0.5, status: 'pending', createdDate: '2023-01-01'},
-      //   {jobNumber: 'ZZZ-999', client: 'ZZZ', location: 'Justin, TX', numHoles: 2, numFeet: 40, jobLength: 0.5, status: 'pending', createdDate: '2023-01-01'},
-      //   {jobNumber: 'ZZZ-889', client: 'ZZZ', location: 'Prosper, TX', numHoles: 1, numFeet: 20, jobLength: 0.5, status: 'pending', createdDate: '2023-01-01'},
-      //   {jobNumber: 'AAA-112', client: 'AAA', location: 'Grapevine, TX', numHoles: 1, numFeet: 50, jobLength: 0.5, status: 'pending', createdDate: '2023-01-01'},
-      //   {jobNumber: 'AAA-567', client: 'AAA', location: 'Crowley, TX', numHoles: 2, numFeet: 100, jobLength: 1.0, status: 'pending', createdDate: '2023-01-01'},
-      //   {jobNumber: 'EWL-876', client: 'EWL', location: 'Midlothian, TX', numHoles: 4, numFeet: 200, jobLength: 1.0, status: 'pending', createdDate: '2023-01-01'},
-      // ];
+      const jobsToCreate = [
+        {job_number: 'EWL-227', client: 'EWL', location: 'Plano, TX', num_holes: 3, num_feet: 60, job_length: 0.5, status: 'pending'},
+        {job_number: 'TER-321', client: 'TER', location: 'Sachse, TX', num_holes: 1, num_feet: 20, job_length: 1.0, status: 'pending'},
+        {job_number: 'AAA-111', client: 'AAA', location: 'Parker, TX', num_holes: 5, num_feet: 1000, job_length: 1.0, status: 'pending'},
+        {job_number: 'ZZZ-2626', client: 'ZZZ', location: 'Lucas, TX', num_holes: 3, num_feet: 120, job_length: 1.0, status: 'pending'},
+        {job_number: 'ZZZ-2627', client: 'ZZZ', location: 'Frisco, TX', num_holes: 2, num_feet: 100, job_length: 0.5, status: 'pending'},
+        {job_number: 'ZZZ-2628', client: 'ZZZ', location: 'McKinney, TX', num_holes: 4, num_feet: 80, job_length: 0.7, status: 'pending'},
+        {job_number: 'ZZZ-2629', client: 'ZZZ', location: 'Mansfield, TX', num_holes: 4, num_feet: 80, job_length: 0.3, status: 'complete'},
+        {job_number: 'ZZZ-2630', client: 'ZZZ', location: 'Mesquite, TX', num_holes: 3, num_feet: 60, job_length: 1.0, status: 'pending'},
+        {job_number: 'EWL-26', client: 'EWL', location: 'Rose Hill, TX', num_holes: 5, num_feet: 200, job_length: 1.0, status: 'pending'},
+        {job_number: 'EWL-2', client: 'EWL', location: 'Rowlett, TX', num_holes: 2, num_feet: 30, job_length: 0.5, status: 'pending'},
+        {job_number: 'ZZZ-6', client: 'ZZZ', location: 'Saginaw, TX', num_holes: 2, num_feet: 40, job_length: 0.6, status: 'canceled'},
+        {job_number: 'EWL-666', client: 'EWL', location: 'Burleson, TX', num_holes: 1, num_feet: 20, job_length: 0.8, status: 'canceled'},
+        {job_number: 'AAA-123', client: 'AAA', location: 'Ft. Worth, TX', num_holes: 3, num_feet: 60, job_length: 0.8, status: 'pending'},
+        {job_number: 'AAA-456', client: 'AAA', location: 'Dallas, TX', num_holes: 5, num_feet: 100, job_length: 1.0, status: 'pending'},
+        {job_number: 'AAA-100', client: 'AAA', location: 'Bedford, TX', num_holes: 2, num_feet: 50, job_length: 0.7, status: 'pending'},
+        {job_number: 'AAA-200', client: 'AAA', location: 'Cedar Hill, TX', num_holes: 2, num_feet: 50, job_length: 0.7, status: 'pending'},
+        {job_number: 'AAA-300', client: 'AAA', location: 'Desoto, TX', num_holes: 2, num_feet: 50, job_length: 0.3, status: 'pending'},
+        {job_number: 'TER-7400', client: 'TER', location: 'Haltom City, TX', num_holes: 2, num_feet: 50, job_length: 1.0, status: 'pending'},
+        {job_number: 'TER-222', client: 'TER', location: 'Grand Prairie, TX', num_holes: 1, num_feet: 25, job_length: 1.0, status: 'pending'},
+        {job_number: 'TER-987', client: 'TER', location: 'Lewisville, TX', num_holes: 3, num_feet: 75, job_length: 0.5, status: 'pending'},
+        {job_number: 'EWL-5454', client: 'EWL', location: 'Carrolton, TX', num_holes: 4, num_feet: 100, job_length: 1.0, status: 'pending'},
+        {job_number: 'EWL-1234', client: 'EWL', location: 'Flower Mound, TX', num_holes: 1, num_feet: 20, job_length: 0.5, status: 'pending'},
+        {job_number: 'ZZZ-999', client: 'ZZZ', location: 'Justin, TX', num_holes: 2, num_feet: 40, job_length: 0.5, status: 'pending'},
+        {job_number: 'ZZZ-889', client: 'ZZZ', location: 'Prosper, TX', num_holes: 1, num_feet: 20, job_length: 0.5, status: 'pending'},
+        {job_number: 'AAA-112', client: 'AAA', location: 'Grapevine, TX', num_holes: 1, num_feet: 50, job_length: 0.5, status: 'pending'},
+        {job_number: 'AAA-567', client: 'AAA', location: 'Crowley, TX', num_holes: 2, num_feet: 100, job_length: 1.0, status: 'pending'},
+        {job_number: 'EWL-876', client: 'EWL', location: 'Midlothian, TX', num_holes: 4, num_feet: 200, job_length: 1.0, status: 'pending'},
+      ];
 
-      // console.log("creating jobs");
-      // const jobs = await Promise.all(jobsToCreate.map(Jobs.createJob));
-      // console.log(jobs);
-      // console.log("finished creating jobs!!");
+      console.log("creating jobs");
+      const jobs = await Promise.all(jobsToCreate.map(Jobs.createJob));
+      console.log(jobs);
+      console.log("finished creating jobs!!");
 
       // const jobsToAssign = [
       //   {jobId: 1, rigId: 1, jobDate: '2023-06-19'},
