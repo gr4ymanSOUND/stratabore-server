@@ -156,20 +156,20 @@ async function populateInitialData() {
       console.log(jobs);
       console.log("finished creating jobs!!");
 
-      // const jobsToAssign = [
-      //   {jobId: 1, rigId: 1, jobDate: '2023-06-19'},
-      //   {jobId: 2, rigId: 1, jobDate: '2023-06-19'},
-      //   {jobId: 2, rigId: 2, jobDate: '2023-06-19'}
-      // ]
+      const jobsToAssign = [
+        {job_id: 1, rig_id: 1, job_date: '2023-06-19'},
+        {job_id: 2, rig_id: 1, job_date: '2023-06-19'},
+        {job_id: 2, rig_id: 2, job_date: '2023-06-19'}
+      ]
 
-      // console.log("creating job assignments");
-      // const jobAssignments = await Promise.all(jobsToAssign.map(JobRigs.createJobAssignment));
-      // console.log(jobAssignments);
-      // console.log("finished creating jobs assignments!!");
+      console.log("creating job assignments");
+      const jobAssignments = await Promise.all(jobsToAssign.map(JobRigs.createJobAssignment));
+      console.log(jobAssignments);
+      console.log("finished creating jobs assignments!!");
 
-      // console.log('testing job_rig updates');
-      // const updatedJob = await JobRigs.updateJobAssignment({jobId: 1, rigId: 1, jobDate: '2023-06-18'});
-      // console.log("finished updating job", updatedJob);
+      console.log('testing job_rig updates');
+      const updatedJob = await JobRigs.updateJobAssignment({job_id: 1, rig_id: 1, job_date: '2023-06-18'});
+      console.log("finished updating job", updatedJob);
 
 }
 

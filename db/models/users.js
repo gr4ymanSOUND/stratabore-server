@@ -72,7 +72,7 @@ async function getAllUsers() {
   
       const [ createdUser ] = await pool.query(`
         INSERT INTO users (${keyString})
-        VALUES (${valueString})
+        VALUES (${valueString});
       `, Object.values(userInfo));
   
       const newUserId = createdUser.insertId;

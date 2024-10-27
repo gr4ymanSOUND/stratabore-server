@@ -62,7 +62,7 @@ async function updateJob(jobId, jobInfo) {
     const [ jobUpdate ] = await pool.query(`
       UPDATE jobs
       SET ${valueString}
-      WHERE id = ?
+      WHERE id = ?;
     `, [jobId]);
 
     const updatedJob = await getJobById(jobId);
