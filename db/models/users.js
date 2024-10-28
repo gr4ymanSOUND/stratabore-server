@@ -17,14 +17,14 @@ async function getAllUsers() {
     }
   }
   
-  async function getUser({ userName, password }) {
+  async function getUser({ username, password }) {
   
     try {
       const [ [user] ]= await pool.query(`
         SELECT *
         FROM users
         WHERE username = ?;
-      `, [userName]);
+      `, [username]);
       
       if (!user) {
         throw new Error('issue logging in');

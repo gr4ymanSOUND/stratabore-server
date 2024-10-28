@@ -4,7 +4,7 @@ import { pool } from '../connectionpool.js'
 
 async function getAllRigs() {
   try {
-    const { rows: allRigs } = await pool.query(`
+    const [ allRigs ] = await pool.query(`
       SELECT *
       FROM rigs;
     `);
