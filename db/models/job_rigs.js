@@ -102,6 +102,7 @@ async function updateJobAssignment({job_id, rig_id, job_date}) {
 export {
   getAllJobsAndAssignments,
   getAssignedJobs,
+  getAssignedJobById,
   createJobAssignment,
   deleteJobAssignment,
   updateJobAssignment

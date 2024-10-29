@@ -136,23 +136,23 @@ async function populateInitialData() {
       console.log("finished creating rigs!!");
 
       // test the rig db models
-      console.log('testing other rig db models')
-      const allRigs = await Rigs.getAllRigs();
-      console.log("getAllRigs result:", allRigs);
+      // console.log('testing other rig db models')
+      // const allRigs = await Rigs.getAllRigs();
+      // console.log("getAllRigs result:", allRigs);
 
-      const rig1 = await Rigs.getRigById(1);
-      console.log("getRigById result:", rig1);
+      // const rig1 = await Rigs.getRigById(1);
+      // console.log("getRigById result:", rig1);
 
-      const rigInfo = {
-        license_plate: 'SSS-5555',
-        rig_type: 'lil',
-        board_color: 'red',
-        registration_due: "2024-05-31",
-        maintenance_due: "2024-05-31",
-        status: 'active'
-      }
-      const updatedRig = await Rigs.updateRig(1, rigInfo);
-      console.log("updateRig result:", updatedRig);
+      // const rigInfo = {
+      //   license_plate: 'SSS-5555',
+      //   rig_type: 'lil',
+      //   board_color: 'red',
+      //   registration_due: "2024-05-31",
+      //   maintenance_due: "2024-05-31",
+      //   status: 'active'
+      // }
+      // const updatedRig = await Rigs.updateRig(1, rigInfo);
+      // console.log("updateRig result:", updatedRig);
 
 
       const jobsToCreate = [
@@ -185,10 +185,30 @@ async function populateInitialData() {
         {job_number: 'EWL-876', client: 'EWL', location: 'Midlothian, TX', num_holes: 4, num_feet: 200, job_length: 1.0, status: 'pending'},
       ];
 
-      // console.log("creating jobs");
-      // const jobs = await Promise.all(jobsToCreate.map(Jobs.createJob));
-      // console.log(jobs);
-      // console.log("finished creating jobs!!");
+      console.log("creating jobs");
+      const jobs = await Promise.all(jobsToCreate.map(Jobs.createJob));
+      console.log("finished creating jobs!!");
+
+      // test the job db models
+      // console.log('testing other job db models')
+      // const allJobs = await Jobs.getAllJobs();
+      // console.log("getAllJobs result:", allJobs);
+
+      // const singleJob = await Jobs.getJobById(1);
+      // console.log("getJobById result:", singleJob);
+
+      // const jobToUpdate = {
+      //   job_number: 'EWL-9999',
+      //   client: 'EWL',
+      //   location: 'Plano, TX',
+      //   num_holes: 3,
+      //   num_feet: 60,
+      //   job_length: 0.5,
+      //   status: 'pending'
+      // }
+      // const updateJob = await Jobs.updateJob(1, jobToUpdate);
+      // console.log("updateJob result:", updateJob);
+
 
       const jobsToAssign = [
         {job_id: 1, rig_id: 1, job_date: '2023-06-19'},
@@ -196,14 +216,28 @@ async function populateInitialData() {
         {job_id: 2, rig_id: 2, job_date: '2023-06-19'}
       ]
 
-      // console.log("creating job assignments");
-      // const jobAssignments = await Promise.all(jobsToAssign.map(JobRigs.createJobAssignment));
-      // console.log(jobAssignments);
-      // console.log("finished creating jobs assignments!!");
+      console.log("creating job assignments");
+      const jobAssignments = await Promise.all(jobsToAssign.map(JobRigs.createJobAssignment));
+      console.log("finished creating jobs assignments!!");
 
-      // console.log('testing job_rig updates');
-      // const updatedJob = await JobRigs.updateJobAssignment({job_id: 1, rig_id: 1, job_date: '2023-06-18'});
-      // console.log("finished updating job", updatedJob);
+
+
+      // console.log('testing other job_rig models');
+
+      // const allJobsAndAssignments = await JobRigs.getAllJobsAndAssignments();
+      // console.log("getAllJobsAndAssignments result:", allJobsAndAssignments);
+
+      // const allAssignedJobs = await JobRigs.getAssignedJobs();
+      // console.log("getAssignedJobs result:", allAssignedJobs);
+      
+      // const singleAssignedJob = await JobRigs.getAssignedJobById(1,1);
+      // console.log("getAssignedJobById result:", singleAssignedJob);
+
+      // const updatedAssignment = await JobRigs.updateJobAssignment({job_id: 1, rig_id: 1, job_date: '2024-07-18'});
+      // console.log("updateJobAssignment result:", updatedAssignment);
+
+      // const deletedAssignment = await JobRigs.deleteJobAssignment({job_id: 1, rig_id: 1, job_date: '2024-07-18'});
+      // console.log("getAssignedJobById result:", deletedAssignment);
 
 }
 
