@@ -75,8 +75,13 @@ async function getAllUsers() {
         VALUES (${valueString});
       `, Object.values(userInfo));
   
+      console.log('db model log after creating user, showing raw db response', createdUser);
+
       const newUserId = createdUser.insertId;
       const newUser = await getUserById(newUserId);
+
+      console.log('db model log after getting user', newUser);
+
       return newUser;
     } catch (error) {
       throw error;
@@ -101,8 +106,13 @@ async function getAllUsers() {
         WHERE id = ?;
       `, [userId]);
 
-      const updatedUser = await getUserById(userId);
-      return updatedUser;
+      if (userInfo.status != 'inactive') {
+        const updatedUser = await getUserById(userId);
+        return updatedUser;
+      } else {
+        return `User ID: ${userId} has been set to Inactive. Users cannot be deleted for data integrity purposes.`
+      }
+      
     } catch (error) {
       throw error;
     }
