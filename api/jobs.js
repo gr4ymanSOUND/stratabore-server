@@ -18,9 +18,9 @@ jobRouter.get('/', requireUser, async (req, res, next) => {
   }
 });
 
-jobRouter.post('/', requireUser, async (req, res, next) => {
+jobRouter.post('/create', requireUser, async (req, res, next) => {
   try {
-    const { newJob } = req.body;
+    const newJob = req.body;
     const addedJob = await createJob(newJob);
     res.send(addedJob);
   } catch (error) {
@@ -44,7 +44,7 @@ jobRouter.delete('/:jobId', requireUser, async (req, res, next) => {
 jobRouter.patch('/:jobId', requireUser, async (req, res, next) => {
   try {
     const { jobId } = req.params;
-    const { newJobData } = req.body;
+    const newJobData = req.body;
 
     const updatedJob = await updateJob(jobId, newJobData);
     res.send(updatedJob);

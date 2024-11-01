@@ -15,7 +15,7 @@ rigRouter.get('/', requireUser, async (req, res, next) => {
 
 rigRouter.post('/create', requireUser, async (req, res, next) => {
   try {
-    const { newRigData } = req.body;
+    const newRigData = req.body;
     const addedRig = await createRig(newRigData);
     res.send(addedRig);
   } catch (error) {
@@ -40,7 +40,7 @@ rigRouter.delete('/:rigId', requireUser, async (req, res, next) => {
 rigRouter.patch('/:rigId', requireUser, async (req, res, next) => {
   try {
     const { rigId } = req.params;
-    const { newRigData } = req.body;
+    const newRigData = req.body;
     const updatedRig = await updateRig(rigId, newRigData);
     res.send(updatedRig);
   } catch (error) {
