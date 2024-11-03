@@ -50,7 +50,7 @@ apiRouter.use('/rigs', rigRouter);
 
 // const jobRigRouter = require('./job_rigs');
 import { jobRigRouter } from './job_rigs.js';
-apiRouter.use('/job_rigs', jobRigRouter);
+apiRouter.use('/assignments', jobRigRouter);
 
 
 // module.exports = apiRouter;
