@@ -26,12 +26,7 @@ server.use(express.static(path.join(__dirname, 'build')));
 import { apiRouter } from './api/index.js';
 server.use('/boringApi', apiRouter);
 
-// by default serve up the react app if we don't recognize the route
-// server.use((req, res, next) => {
-//   res.sendFile(path.join(__dirname, 'build', 'index.html'));
-// });
-
-// bring in the DB connection
+// bring in the DB connection for PostgreSQL
 // const { client } = require('./db');
 
 // connect to the server

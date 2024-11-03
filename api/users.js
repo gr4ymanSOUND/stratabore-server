@@ -14,8 +14,6 @@ import {
 userRouter.get('/', requireUser, async (req, res, next) => {
   const prefix = 'Bearer ';
 
-// FOR SECURITY LATER
-  // add "requireUser" back to start of get call, then include
   try {
     const auth = req.headers.authorization;
     const token = auth.slice(prefix.length);
