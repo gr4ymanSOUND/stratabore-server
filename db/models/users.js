@@ -74,13 +74,9 @@ async function getAllUsers() {
         INSERT INTO users (${keyString})
         VALUES (${valueString});
       `, Object.values(userInfo));
-  
-      console.log('db model log after creating user, showing raw db response', createdUser);
 
       const newUserId = createdUser.insertId;
       const newUser = await getUserById(newUserId);
-
-      console.log('db model log after getting user', newUser);
 
       return newUser;
     } catch (error) {

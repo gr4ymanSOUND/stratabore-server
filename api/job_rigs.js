@@ -29,7 +29,7 @@ jobRigRouter.get('/assigned', requireUser, async (req, res, next) => {
   }
 });
 
-jobRigRouter.post('/create', requireUser, async (req, res, next) => {
+jobRigRouter.post('/assign', requireUser, async (req, res, next) => {
   try {
     const newJobRig = req.body;
     const newAssignment = await createJobAssignment(newJobRig);

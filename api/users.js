@@ -32,9 +32,8 @@ userRouter.get('/', requireUser, async (req, res, next) => {
 // create new users from the user form
 userRouter.post('/create', async (req, res, next) => {  
   try {
-    const newUserData = req.body;
+    const { newUserData } = req.body;
     const newUser = await createUser(newUserData);
-    console.log('api log', newUser);
     res.send(newUser);
   } catch (error) {
     next(error);
@@ -81,7 +80,7 @@ userRouter.get('/me', requireUser, async (req, res, next) => {
 userRouter.patch('/:userId', requireUser, async (req, res, next) => {
   try {
     const { userId } = req.params;
-    const newUserData = req.body;
+    const { newUserData } = req.body;
     const updatedUser = await updateUser(userId, newUserData);
     res.send(updatedUser);
   } catch (error) {
