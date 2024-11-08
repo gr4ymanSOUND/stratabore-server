@@ -31,7 +31,8 @@ jobRigRouter.get('/assigned', requireUser, async (req, res, next) => {
 
 jobRigRouter.post('/assign', requireUser, async (req, res, next) => {
   try {
-    const newJobRig = req.body;
+    const { newJobRig } = req.body;
+    console.log('api jobrig assign req.body', newJobRig)
     const newAssignment = await createJobAssignment(newJobRig);
     res.send(newAssignment);
   } catch (error) {
@@ -42,7 +43,8 @@ jobRigRouter.post('/assign', requireUser, async (req, res, next) => {
 
 jobRigRouter.patch('/update', requireUser, async (req, res, next) => {
   try {
-    const newJobRig = req.body;
+    const { newJobRig}  = req.body;
+    console.log('api jobrig update req.body', newJobRig)
     const updatedAssigment = await updateJobAssignment(newJobRig);
     res.send(updatedAssigment);
   } catch (error) {
@@ -53,7 +55,8 @@ jobRigRouter.patch('/update', requireUser, async (req, res, next) => {
 
 jobRigRouter.delete('/unassign', requireUser, async (req, res, next) => {
   try {
-    const jobToUnassign = req.body;
+    const { jobToUnassign}  = req.body;
+    console.log('api jobrig unassign req.body', jobToUnassign);
     const deletedJob = await deleteJobAssignment(jobToUnassign);
     res.send(deletedJob);
   } catch (error) {

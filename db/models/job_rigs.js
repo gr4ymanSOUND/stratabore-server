@@ -69,6 +69,7 @@ async function deleteJobAssignment({job_id, rig_id, job_date}) {
       DELETE FROM job_rigs
       WHERE job_id = ? AND rig_id = ? AND job_date = ?;
     `, [job_id, rig_id, job_date]);
+    console.log('deleteassignment data', job_id, rig_id, job_date)
 
     return `Job #${job_id} Unassigned from Rig #${rig_id} on ${job_date}.`;
   } catch (error) {
