@@ -33,6 +33,15 @@ apiRouter.use(async (req, res, next) => {
   }
 });
 
+apiRouter.get('/health', (req, res, next) => {
+  console.log('Health check requested');
+  res.status(200).send({
+    message: 'Server is healthy!',
+    status: 'ok',
+    timestamp: new Date().toISOString(),
+  });
+});
+
 
 // API routers
 

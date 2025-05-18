@@ -86,6 +86,12 @@ async function getAllUsers() {
 
   async function updateUser(userId, userInfo) {
     try {
+      // check if userInfo has a password to update, and encrypt it the same way as when creating a user
+      if (userInfo.password) {
+        const hashedPassword = await bcrypt.hash(userInfo.password, SALT);
+        userInfo.password = hashedPassword;
+      }
+      
       const valueString = Object.keys(userInfo).map(
         (key, index) => {
           // special case for the is_admin field - since it's boolean, we need to remove the quotes from the 2nd half of the entry

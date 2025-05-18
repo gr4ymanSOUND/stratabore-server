@@ -24,7 +24,7 @@ server.use(express.static(path.join(__dirname, 'build')));
 
 // here's our API
 import { apiRouter } from './api/index.js';
-server.use('/boringapi', apiRouter);
+server.use('/boringdbapi', apiRouter);
 
 // bring in the DB connection for PostgreSQL
 // const { client } = require('./db');
