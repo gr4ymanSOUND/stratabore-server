@@ -8,7 +8,7 @@ const SALT = 13;
 async function getAllUsers() {
     try {
       const [ allUsers ] = await pool.query(`
-        SELECT id, first_name, last_name, email, username, is_admin, status
+        SELECT id, first_name, last_name, email, username, rig_id, is_admin, status
         FROM users;
       `);
       return allUsers;

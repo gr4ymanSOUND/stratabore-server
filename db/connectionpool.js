@@ -8,7 +8,6 @@ import mysql from 'mysql2';
 // console.log('NODE_ENV:', process.env.NODE_ENV);
 
 let pool;
-
 if (process.env.NODE_ENV = 'development'){
   pool = mysql.createPool({
     host: '127.0.0.1',
