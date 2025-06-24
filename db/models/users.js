@@ -62,18 +62,16 @@ async function getAllUsers() {
     try {
       const hashedPassword = await bcrypt.hash(userInfo.password, SALT);
       userInfo.password = hashedPassword;
-      const valueString = Object.keys(userInfo).map(
-        (key, index) => `?`
-      ).join(', ');
 
-      const keyString = Object.keys(userInfo).map(
-        (key) => `${ key }`
-      ).join(', ');
-  
-      const [ createdUser ] = await pool.query(`
-        INSERT INTO users (${keyString})
-        VALUES (${valueString});
-      `, Object.values(userInfo));
+    const keys = Object.keys(userInfo);
+    const keyString = keys.join(', ');
+    const valuePlaceholders = keys.map(() => '?').join(', ');
+    const values = keys.map(key => userInfo[key]);
+
+    const [ createdUser ] = await pool.query(
+      `INSERT INTO users (${keyString}) VALUES (${valuePlaceholders});`,
+      values
+    );
 
       const newUserId = createdUser.insertId;
       const newUser = await getUserById(newUserId);
@@ -92,15 +90,15 @@ async function getAllUsers() {
         userInfo.password = hashedPassword;
       }
       
-      const valueString = Object.keys(userInfo).map(
-        (key, index) => {
-          // special case for the is_admin field - since it's boolean, we need to remove the quotes from the 2nd half of the entry
-          if (key == 'is_admin') {
-            return `${key} = ${userInfo[key]}`
-          }
-          return `${key} = '${userInfo[key]}'`
-        }
-      ).join(', ');
+      const keys = Object.keys(userInfo);
+      const keyString = keys.join(', ');
+      const valuePlaceholders = keys.map(() => '?').join(', ');
+      const values = keys.map(key => userInfo[key]);
+
+      const [ createdUser ] = await pool.query(
+        `INSERT INTO users (${keyString}) VALUES (${valuePlaceholders});`,
+        values
+      );
 
       const [ userUpdate ] = await pool.query(`
         UPDATE users

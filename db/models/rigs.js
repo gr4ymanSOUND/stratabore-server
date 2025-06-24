@@ -33,26 +33,20 @@ async function getRigById(id) {
 
 async function createRig(rigInfo) {
   try {
-    try {
-      const valueString = Object.keys(rigInfo).map(
-        (key, index) => `?`
-      ).join(', ');
 
-      const keyString = Object.keys(rigInfo).map(
-        (key) => `${key}`
-      ).join(', ');
+    const keys = Object.keys(rigInfo);
+    const keyString = keys.join(', ');
+    const valuePlaceholders = keys.map(()=> '?').join(', ');
+    const values = keys.map(key => rigInfo[key]);
 
-      const [ createdRig ] = await pool.query(`
-        INSERT INTO rigs (${keyString})
-        VALUES (${valueString})
-        `, Object.values(rigInfo));
+    const [ createdRig ] = await pool.query(`
+      INSERT INTO rigs (${keyString})
+      VALUES (${valuePlaceholders})
+      `, values);
 
-      const newRigId = createdRig.insertId;
-      const newRig = await getRigById(newRigId);  
-      return newRig;
-    } catch (error) {
-      throw error;
-    }
+    const newRigId = createdRig.insertId;
+    const newRig = await getRigById(newRigId);  
+    return newRig;
   } catch (error) {
     throw error;
   }
@@ -60,15 +54,18 @@ async function createRig(rigInfo) {
 
 async function updateRig(rigId, rigInfo) {
   try {
-    const valueString = Object.keys(rigInfo).map(
-      (key, index) => `${key} = '${rigInfo[key]}'`
-    ).join(', ');
+
+    const keys = Object.keys(rigInfo);
+    const setString = keys.map(key => `${key} = ?`).join(', ');
+    const values = keys.map(key => rigInfo[key]);
+    values.push(rigId); // for WHERE clause
 
     const [ rigUpdate ] = await pool.query(`
       UPDATE rigs
-      SET ${valueString}
+      SET ${setString}
       WHERE id = ?;
-    `, [rigId]);
+      `, values);
+
 
     const updatedRig = await getRigById(rigId);
     return updatedRig;

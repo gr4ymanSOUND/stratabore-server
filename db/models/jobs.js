@@ -32,18 +32,15 @@ async function getJobById(id) {
 
 async function createJob(jobInfo) {
   try {
-    const valueString = Object.keys(jobInfo).map(
-      (key, index) => `?`
-    ).join(', ');
+    const keys = Object.keys(jobInfo);
+    const keyString = keys.join(', ');
+    const valuePlaceholders = keys.map(() => '?').join(', ');
+    const values = keys.map(key => jobInfo[key]);
 
-    const keyString = Object.keys(jobInfo).map(
-      (key) => `${key}`
-    ).join(', ');
-
-    const [ createdJob ] = await pool.query(`
-      INSERT INTO jobs (${keyString})
-      VALUES (${valueString});
-      `, Object.values(jobInfo));
+    const [ createdJob ] = await pool.query(
+      `INSERT INTO jobs (${keyString}) VALUES (${valuePlaceholders});`,
+      values
+    );
 
     const newJobId = createdJob.insertId;
     const newJob = await getJobById(newJobId);
@@ -55,15 +52,15 @@ async function createJob(jobInfo) {
 
 async function updateJob(jobId, jobInfo) {
   try {
-    const valueString = Object.keys(jobInfo).map(
-      (key, index) => `${key} = '${jobInfo[key]}'`
-    ).join(', ');
+    const keys = Object.keys(jobInfo);
+    const setString = keys.map(key => `${key} = ?`).join(', ');
+    const values = keys.map(key => jobInfo[key]);
+    values.push(jobId); // for WHERE clause
 
-    const [ jobUpdate ] = await pool.query(`
-      UPDATE jobs
-      SET ${valueString}
-      WHERE id = ?;
-    `, [jobId]);
+    const [ jobUpdate ] = await pool.query(
+      `UPDATE jobs SET ${setString} WHERE id = ?;`,
+      values
+    );
 
     const updatedJob = await getJobById(jobId);
     return updatedJob;
