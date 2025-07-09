@@ -90,21 +90,22 @@ async function getAllUsers() {
         userInfo.password = hashedPassword;
       }
       
+      // Convert empty string rig_id to null (for safety)
+      if ('rig_id' in userInfo && (userInfo.rig_id === '' || userInfo.rig_id === undefined)) {
+        userInfo.rig_id = null;
+      }
+
       const keys = Object.keys(userInfo);
-      const keyString = keys.join(', ');
-      const valuePlaceholders = keys.map(() => '?').join(', ');
+      const setString = keys.map(key => `${key} = ?`).join(', ');
       const values = keys.map(key => userInfo[key]);
+      values.push(userId);
 
-      const [ createdUser ] = await pool.query(
-        `INSERT INTO users (${keyString}) VALUES (${valuePlaceholders});`,
-        values
-      );
-
-      const [ userUpdate ] = await pool.query(`
+      await pool.query(`
         UPDATE users
-        SET ${valueString}
+        SET ${setString}
         WHERE id = ?;
-      `, [userId]);
+        `, values
+      );
 
       if (userInfo.status != 'inactive') {
         const updatedUser = await getUserById(userId);
